@@ -8,8 +8,11 @@ pr matawarn, rclass
 		di as err "invalid filename"
 		ex 198
 	}
-	qui findfile `"`fn'"'
-	loc fn "`r(fn)'"
+	cap conf f `"`fn'"'
+	if _rc {
+		qui findfile `"`fn'"'
+		loc fn "`r(fn)'"
+	}
 
 	if !c(noisily) {
 		di as err "quietly not allowed"
