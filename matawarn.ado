@@ -1,7 +1,7 @@
 pr matawarn, rclass
 	vers 10.1
 
-	syntax anything(name=fn id=filename), [View]
+	syntax anything(name=fn id=filename), [View NOCLEAR]
 
 	gettoken fn rest : fn
 	if `:length loc rest' {
@@ -24,8 +24,11 @@ pr matawarn, rclass
 	tempfile res
 	qui log using `res', name(`log') s
 
-	clear programs
-	clear mata
+	if "`noclear'" == "" {
+		clear programs
+		clear mata
+	}
+
 	do `"`fn'"'
 
 	qui log close `log'
